@@ -13,14 +13,15 @@ extends JFrame
 	Image doubleBufferImg;
 	Graphics doubleBufferGraphics;
 	public static int showBubbles = 20;
-	public static int glassHeight = 900;
+	public static int glassHeight = 990;
 	public static int width = 1000;
 	public static int height = 1000;
+	public static int render = 0;
 	private static final long serialVersionUID = 1L;
 	static bubble[] bubbles = new bubble[500];
 	public static void main(String[] args) throws InterruptedException
 	{
-		GTest gui = new GTest();
+		Glass_Filling_Up gui = new Glass_Filling_Up();
 		gui.setSize(width, height);
 		gui.setVisible(true);
 		gui.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -33,7 +34,7 @@ extends JFrame
 		for(int i = 0; i < bubbles.length; i++)
 		{
 			bubbles[i].setOutterX(randNumb(800,200));
-			bubbles[i].setOutterY(randNumb(1000,200));
+			bubbles[i].setOutterY(randNumb(1200,1000));
 			bubbles[i].setOutterHeight(randNumb(20,10));
 			bubbles[i].setOutterWidth(bubbles[i].getOutterHeight());
 			bubbles[i].setInnerX(bubbles[i].getOutterX()+(int)(bubbles[i].getOutterWidth()/3.75));
@@ -44,11 +45,25 @@ extends JFrame
 		}
 		while(true)
 		{
-			if(glassHeight > 200)
+			if(glassHeight > 201)
 			{
+				if(glassHeight % 2 == 0)
+				{
+					if(render < bubbles.length)
+					{
+						render += 4;
+					}
+				}
+				else
+				{
+					if(glassHeight == 207)
+					{
+						render = bubbles.length;
+					}
+				}
 				glassHeight = glassHeight-3;
 			}
-			for(int i = 0; i < bubbles.length; i++)
+			for(int i = 0; i < render; i++)
 			{
 				if(bubbles[i].getOutterX()+10+bubbles[i].getOutterWidth() > 800)
 				{
@@ -56,7 +71,7 @@ extends JFrame
 				}
 				else
 				{
-					if(bubbles[i].getOutterX()-10-bubbles[i].getOutterWidth() < 200)
+					if(bubbles[i].getOutterX()-10-bubbles[i].getOutterWidth() < 195)
 					{
 						bubbles[i].setOutterX(bubbles[i].getOutterX()+randNumb(4,0));
 					}
@@ -77,7 +92,7 @@ extends JFrame
 				bubbles[i].setInnerY(bubbles[i].getOutterY()+(int)(bubbles[i].getOutterHeight()/3.75));
 				if(bubbles[i].getInnerY() < glassHeight+3)
 				{
-					bubbles[i].setOutterX(randNumb(760,220));
+					bubbles[i].setOutterX(randNumb(760,200));
 					bubbles[i].setInnerX(bubbles[i].getOutterX()+(int)(bubbles[i].getOutterWidth()/3.75));
 					bubbles[i].setOutterY(randNumb(1200,1000));
 					bubbles[i].setInnerY(bubbles[i].getOutterY()+(int)(bubbles[i].getOutterHeight()/3.75));
@@ -115,12 +130,14 @@ extends JFrame
 		g.fillRect(200,200,600,800);
 		g.setColor(background);
 		g.fillRect(200,glassHeight,600,800);
-		for(int i = 0; i < bubbles.length; i++)
+		for(int i = 0; i < render; i++)
 		{
 			g.setColor(upperBackground);
 			g.fillOval(bubbles[i].getOutterX(), bubbles[i].getOutterY(),bubbles[i].getOutterWidth(), bubbles[i].getOutterHeight());
 			g.setColor(background);
 			g.fillOval(bubbles[i].getInnerX(), bubbles[i].getInnerY(),bubbles[i].getInnerWidth(), bubbles[i].getInnerHeight());
+			g.setColor(glassColor);
+			g.fillRect(200,990,600,10);
 		}
 	}
 	public static int randNumb(int max, int min)
