@@ -99,7 +99,7 @@ extends JFrame
 				}
 			}
 			gui.repaint();
-			Thread.sleep(30);
+			Thread.sleep(25);
 		}
 	}
 	public void paint(Graphics g)
