@@ -1,5 +1,9 @@
+/*
+Author of the program: Marko Jurkic / Rottweil, Germany
+https://github.com/TheRiotJoker
+Contact: marko.jurkic23@gmail.com
+*/
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
